@@ -1422,14 +1422,14 @@ angular.module("templates/rcalendar/month.html", []).run(["$templateCache", func
     "    <ion-content class=\"event-detail-container\" has-bouncing=\"false\" ng-show=\"showEventDetail\" overflow-scroll=\"false\">\n" +
     "        <table class=\"table table-bordered table-striped table-fixed event-detail-table\">\n" +
     "            <tr ng-repeat=\"event in selectedDate.events\" ng-click=\"eventSelected({event:event})\">\n" +
-    "                <td ng-if=\"!event.allDay\" class=\"monthview-eventdetail-timecolumn\">{{::event.startTime|date: 'hh:mm a'}}\n" +
+    "                <td ng-if=\"!event.allDay\" class=\"monthview-eventdetail-timecolumn\">{{::event.startTime|date: 'h:mm a'}}\n" +
     "                    -\n" +
-    "                    {{::event.endTime|date: 'hh:mm a'}}\n" +
+    "                    {{::event.endTime|date: 'h:mm a'}}\n" +
     "                </td>\n" +
     "                <td ng-if=\"event.allDay\" class=\"monthview-eventdetail-timecolumn\">All day</td>\n" +
     "                <td class=\"event-detail\">\n" +
     "                    <div>{{::event.title}}</div>\n" +
-    "                    <div>{{::event.details}}</div>div>\n" +
+    "                    <div>{{::event.details}}</div>\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "            <tr ng-if=\"!selectedDate.events\">\n" +
