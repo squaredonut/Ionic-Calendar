@@ -221,12 +221,15 @@
     <ion-content class="event-detail-container" has-bouncing="false" ng-show="showEventDetail" overflow-scroll="false">
         <table class="table table-bordered table-striped table-fixed event-detail-table">
             <tr ng-repeat="event in selectedDate.events" ng-click="eventSelected({event:event})">
-                <td ng-if="!event.allDay" class="monthview-eventdetail-timecolumn">{{::event.startTime|date: 'HH:mm'}}
+                <td ng-if="!event.allDay" class="monthview-eventdetail-timecolumn">{{::event.startTime|date: 'hh:mm a'}}
                     -
-                    {{::event.endTime|date: 'HH:mm'}}
+                    {{::event.endTime|date: 'hh:mm a'}}
                 </td>
                 <td ng-if="event.allDay" class="monthview-eventdetail-timecolumn">All day</td>
-                <td class="event-detail">{{::event.title}}</td>
+                <td class="event-detail">
+                    <div>{{::event.title}}</div>
+                    <div>{{::event.details}}</div>div>
+                </td>
             </tr>
             <tr ng-if="!selectedDate.events">
                 <td class="no-event-label" ng-bind="::noEventsLabel"></td>
