@@ -1427,7 +1427,7 @@ angular.module("templates/rcalendar/month.html", []).run(["$templateCache", func
     "                    {{::event.endTime|date: 'h:mm a'}}\n" +
     "                </td>\n" +
     "                <td ng-if=\"event.allDay\" class=\"monthview-eventdetail-timecolumn\">All day</td>\n" +
-    "                <td class=\"event-detail\">\n" +
+    "                <td class=\"event-detail style=\"word-wrap: break-word;word-break: break-all;white-space: normal;\">\n" +
     "                    <div>{{::event.title}}</div>\n" +
     "                    <div>{{::event.details}}</div>\n" +
     "                </td>\n" +
