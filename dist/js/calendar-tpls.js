@@ -346,7 +346,8 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                 rangeChanged: '&',
                 eventSelected: '&',
                 timeSelected: '&',
-                titleChanged: '&'
+                titleChanged: '&',
+                addEvent: '&'
             },
             require: ['calendar', '?^ngModel'],
             controller: 'ui.rCalendar.CalendarController',
@@ -382,6 +383,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
 
                 ctrl.mode = {
                     step: {months: 1}
+                    
                 };
 
                 scope.noEventsLabel = ctrl.noEventsLabel;
@@ -485,6 +487,13 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                             scope.timeSelected({selectedTime: selectedDate});
                         }
                     }
+                };
+
+                scope.addNewEvent = function () {
+                    if (scope.addEvent) {
+                        scope.addEvent();
+                    }
+                    return false;
                 };
 
                 scope.getHighlightClass = function (date) {
@@ -990,6 +999,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                     }
                 };
 
+
                 ctrl._onDataLoaded = function () {
                     var eventSource = ctrl.eventSource,
                         hour,
@@ -1199,7 +1209,7 @@ angular.module("templates/rcalendar/day.html", []).run(["$templateCache", functi
 
 angular.module("templates/rcalendar/month.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/rcalendar/month.html",
-    "<div>\n" +
+    "<div>   \n" +
     "    <ion-slide-box class=\"monthview-slide\" on-slide-changed=\"slideChanged($index)\" does-continue=\"true\"\n" +
     "                   show-pager=\"false\" delegate-handle=\"monthview-slide\">\n" +
     "        <ion-slide ng-repeat=\"view in views track by $index\">\n" +
@@ -1427,13 +1437,16 @@ angular.module("templates/rcalendar/month.html", []).run(["$templateCache", func
     "                    {{::event.endTime|date: 'h:mm a'}}\n" +
     "                </td>\n" +
     "                <td ng-if=\"event.allDay\" class=\"monthview-eventdetail-timecolumn\">All day</td>\n" +
-    "                <td class=\"event-detail style=\"word-wrap: break-word;word-break: break-all;white-space: normal;\">\n" +
+    "                <td class=\"event-detail\">\n" +
     "                    <div>{{::event.title}}</div>\n" +
     "                    <div>{{::event.details}}</div>\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "            <tr ng-if=\"!selectedDate.events\">\n" +
-    "                <td class=\"no-event-label\" ng-bind=\"::noEventsLabel\"></td>\n" +
+    "                <td class=\"no-event-label\">\n" +
+    "                    <div ng-bind=\"::noEventsLabel\"></div>\n" +
+    "                    <a ng-if=\"addEvent\" href=\"\" class=\"add-event-link\" ng-click=\"addNewEvent()\">Add one now</a>\n" +
+    "                </td>\n" +
     "            </tr>\n" +
     "        </table>\n" +
     "    </ion-content>\n" +

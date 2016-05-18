@@ -1,4 +1,4 @@
-<div>
+<div>   
     <ion-slide-box class="monthview-slide" on-slide-changed="slideChanged($index)" does-continue="true"
                    show-pager="false" delegate-handle="monthview-slide">
         <ion-slide ng-repeat="view in views track by $index">
@@ -226,13 +226,16 @@
                     {{::event.endTime|date: 'h:mm a'}}
                 </td>
                 <td ng-if="event.allDay" class="monthview-eventdetail-timecolumn">All day</td>
-                <td class="event-detail style="word-wrap: break-word;word-break: break-all;white-space: normal;">
+                <td class="event-detail">
                     <div>{{::event.title}}</div>
                     <div>{{::event.details}}</div>
                 </td>
             </tr>
             <tr ng-if="!selectedDate.events">
-                <td class="no-event-label" ng-bind="::noEventsLabel"></td>
+                <td class="no-event-label">
+                    <div ng-bind="::noEventsLabel"></div>
+                    <a ng-if="addEvent" href="" class="add-event-link" ng-click="addNewEvent()">Add one now</a>
+                </td>
             </tr>
         </table>
     </ion-content>

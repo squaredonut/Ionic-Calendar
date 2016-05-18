@@ -345,7 +345,8 @@ angular.module('ui.rCalendar', [])
                 rangeChanged: '&',
                 eventSelected: '&',
                 timeSelected: '&',
-                titleChanged: '&'
+                titleChanged: '&',
+                addEvent: '&'
             },
             require: ['calendar', '?^ngModel'],
             controller: 'ui.rCalendar.CalendarController',
@@ -381,6 +382,7 @@ angular.module('ui.rCalendar', [])
 
                 ctrl.mode = {
                     step: {months: 1}
+                    
                 };
 
                 scope.noEventsLabel = ctrl.noEventsLabel;
@@ -484,6 +486,13 @@ angular.module('ui.rCalendar', [])
                             scope.timeSelected({selectedTime: selectedDate});
                         }
                     }
+                };
+
+                scope.addNewEvent = function () {
+                    if (scope.addEvent) {
+                        scope.addEvent();
+                    }
+                    return false;
                 };
 
                 scope.getHighlightClass = function (date) {
@@ -988,6 +997,7 @@ angular.module('ui.rCalendar', [])
                         scope.timeSelected({selectedTime: selectedTime});
                     }
                 };
+
 
                 ctrl._onDataLoaded = function () {
                     var eventSource = ctrl.eventSource,
