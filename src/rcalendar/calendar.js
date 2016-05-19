@@ -11,6 +11,7 @@ angular.module('ui.rCalendar', [])
         showEventDetail: true,
         startingDayMonth: 0,
         startingDayWeek: 0,
+        startingHourInDay: 6,
         allDayLabel: 'all day',
         noEventsLabel: 'No Events',
         eventSource: null,
@@ -24,7 +25,7 @@ angular.module('ui.rCalendar', [])
 
         // Configuration attributes
         angular.forEach(['formatDay', 'formatDayHeader', 'formatDayTitle', 'formatWeekTitle', 'formatMonthTitle', 'formatWeekViewDayHeader', 'formatHourColumn',
-            'showEventDetail', 'allDayLabel', 'noEventsLabel', 'eventSource', 'queryMode', 'step', 'startingDayMonth', 'startingDayWeek'], function (key, index) {
+            'showEventDetail', 'allDayLabel', 'noEventsLabel', 'eventSource', 'queryMode', 'step', 'startingDayMonth', 'startingDayWeek', 'startingHourInDay'], function (key, index) {
             self[key] = angular.isDefined($attrs[key]) ? (index < 10 ? $interpolate($attrs[key])($scope.$parent) : $scope.$parent.$eval($attrs[key])) : calendarConfig[key];
         });
 
@@ -954,7 +955,7 @@ angular.module('ui.rCalendar', [])
             }
         };
     }])
-    .directive('dayview', ['dateFilter', function (dateFilter) {
+    .directive('dayview', ['dateFilter', '$ionicPosition', '$ionicScrollDelegate', '$timeout', function (dateFilter,$ionicPosition, $ionicScrollDelegate, $timeout) {
         'use strict';
         return {
             restrict: 'EA',
@@ -1129,6 +1130,11 @@ angular.module('ui.rCalendar', [])
                 ctrl.registerSlideChanged(scope);
 
                 ctrl.refreshView();
+
+                $timeout(function () {
+                    var position = $ionicPosition.position(angular.element(document.getElementById(ctrl.startingHourInDay + '_hourOfTheDay')));
+                    $ionicScrollDelegate.scrollTo(position.left, position.top, true);
+                });
             }
         };
     }]);

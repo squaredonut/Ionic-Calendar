@@ -12,6 +12,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
         showEventDetail: true,
         startingDayMonth: 0,
         startingDayWeek: 0,
+        startingHourInDay: 6,
         allDayLabel: 'all day',
         noEventsLabel: 'No Events',
         eventSource: null,
@@ -25,7 +26,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
 
         // Configuration attributes
         angular.forEach(['formatDay', 'formatDayHeader', 'formatDayTitle', 'formatWeekTitle', 'formatMonthTitle', 'formatWeekViewDayHeader', 'formatHourColumn',
-            'showEventDetail', 'allDayLabel', 'noEventsLabel', 'eventSource', 'queryMode', 'step', 'startingDayMonth', 'startingDayWeek'], function (key, index) {
+            'showEventDetail', 'allDayLabel', 'noEventsLabel', 'eventSource', 'queryMode', 'step', 'startingDayMonth', 'startingDayWeek', 'startingHourInDay'], function (key, index) {
             self[key] = angular.isDefined($attrs[key]) ? (index < 10 ? $interpolate($attrs[key])($scope.$parent) : $scope.$parent.$eval($attrs[key])) : calendarConfig[key];
         });
 
@@ -955,7 +956,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
             }
         };
     }])
-    .directive('dayview', ['dateFilter', function (dateFilter) {
+    .directive('dayview', ['dateFilter', '$ionicPosition', '$ionicScrollDelegate', '$timeout', function (dateFilter,$ionicPosition, $ionicScrollDelegate, $timeout) {
         'use strict';
         return {
             restrict: 'EA',
@@ -1130,6 +1131,11 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                 ctrl.registerSlideChanged(scope);
 
                 ctrl.refreshView();
+
+                $timeout(function () {
+                    var position = $ionicPosition.position(angular.element(document.getElementById(ctrl.startingHourInDay + '_hourOfTheDay')));
+                    $ionicScrollDelegate.scrollTo(position.left, position.top, true);
+                });
             }
         };
     }]);
@@ -1169,11 +1175,11 @@ angular.module("templates/rcalendar/day.html", []).run(["$templateCache", functi
     "                    </table>\n" +
     "                </ion-content>\n" +
     "            </div>\n" +
-    "            <ion-content class=\"dayview-normal-event-container\" has-bouncing=\"false\" overflow-scroll=\"false\">\n" +
+    "            <ion-content delegate-handle=\"dayViewScroll\" class=\"dayview-normal-event-container\" has-bouncing=\"false\" overflow-scroll=\"false\">\n" +
     "                <table class=\"table table-bordered table-fixed dayview-normal-event-table\"\n" +
     "                       ng-if=\"$index===currentViewIndex\">\n" +
     "                    <tbody>\n" +
-    "                    <tr ng-repeat=\"tm in view.rows track by $index\">\n" +
+    "                    <tr ng-attr-id=\"{{::tm.time | date: 'H'}}_hourOfTheDay\" ng-repeat=\"tm in view.rows track by $index\">\n" +
     "                        <td class=\"calendar-hour-column text-center\">\n" +
     "                            {{::tm.time | date: formatHourColumn}}\n" +
     "                        </td>\n" +

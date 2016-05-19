@@ -23,11 +23,11 @@
                     </table>
                 </ion-content>
             </div>
-            <ion-content class="dayview-normal-event-container" has-bouncing="false" overflow-scroll="false">
+            <ion-content delegate-handle="dayViewScroll" class="dayview-normal-event-container" has-bouncing="false" overflow-scroll="false">
                 <table class="table table-bordered table-fixed dayview-normal-event-table"
                        ng-if="$index===currentViewIndex">
                     <tbody>
-                    <tr ng-repeat="tm in view.rows track by $index">
+                    <tr ng-attr-id="{{::tm.time | date: 'H'}}_hourOfTheDay" ng-repeat="tm in view.rows track by $index">
                         <td class="calendar-hour-column text-center">
                             {{::tm.time | date: formatHourColumn}}
                         </td>
