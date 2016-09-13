@@ -441,7 +441,7 @@ angular.module('ui.rCalendar', [])
                     }
                 }
 
-                scope.select = function (selectedDate) {
+                scope.select = function (selectedDate, events) {
                     var views = scope.views,
                         dates,
                         r;
@@ -484,7 +484,7 @@ angular.module('ui.rCalendar', [])
                         }
 
                         if (scope.timeSelected) {
-                            scope.timeSelected({selectedTime: selectedDate});
+                            scope.timeSelected({selectedTime: selectedDate, events: events});
                         }
                     }
                 };

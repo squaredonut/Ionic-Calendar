@@ -442,7 +442,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                     }
                 }
 
-                scope.select = function (selectedDate) {
+                scope.select = function (selectedDate, events) {
                     var views = scope.views,
                         dates,
                         r;
@@ -485,7 +485,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                         }
 
                         if (scope.timeSelected) {
-                            scope.timeSelected({selectedTime: selectedDate});
+                            scope.timeSelected({selectedTime: selectedDate, events: events});
                         }
                     }
                 };
@@ -1183,7 +1183,7 @@ angular.module("templates/rcalendar/day.html", []).run(["$templateCache", functi
     "                        <td class=\"calendar-hour-column text-center\">\n" +
     "                            {{::tm.time | date: formatHourColumn}}\n" +
     "                        </td>\n" +
-    "                        <td class=\"calendar-cell\" ng-click=\"select(tm.time)\">\n" +
+    "                        <td class=\"calendar-cell\" ng-click=\"select(tm.time, tm.events)\">\n" +
     "                            <div ng-class=\"{'calendar-event-wrap': tm.events}\" ng-if=\"tm.events\">\n" +
     "                                <div ng-repeat=\"displayEvent in tm.events\" class=\"calendar-event\"\n" +
     "                                     ng-click=\"eventSelected({event:displayEvent.event})\"\n" +
@@ -1506,7 +1506,7 @@ angular.module("templates/rcalendar/week.html", []).run(["$templateCache", funct
     "                            <td class=\"calendar-hour-column text-center\">\n" +
     "                                {{::row[0].time | date: formatHourColumn}}\n" +
     "                            </td>\n" +
-    "                            <td ng-repeat=\"tm in row track by tm.time\" class=\"calendar-cell\" ng-click=\"select(tm.time)\">\n" +
+    "                            <td ng-repeat=\"tm in row track by tm.time\" class=\"calendar-cell\" ng-click=\"select(tm.time, tm.events)\">\n" +
     "                                <div ng-class=\"{'calendar-event-wrap': tm.events}\" ng-if=\"tm.events\">\n" +
     "                                    <div ng-repeat=\"displayEvent in tm.events\" class=\"calendar-event\"\n" +
     "                                         ng-click=\"eventSelected({event:displayEvent.event})\"\n" +
