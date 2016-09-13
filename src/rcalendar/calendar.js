@@ -753,9 +753,9 @@ angular.module('ui.rCalendar', [])
                     return title;
                 };
 
-                scope.select = function (selectedTime) {
+                scope.select = function (selectedTime, events) {
                     if (scope.timeSelected) {
-                        scope.timeSelected({selectedTime: selectedTime});
+                        scope.timeSelected({selectedTime: selectedTime, events: events});
                     }
                 };
 
@@ -993,9 +993,9 @@ angular.module('ui.rCalendar', [])
                     return eventA.startOffset - eventB.startOffset;
                 }
 
-                scope.select = function (selectedTime) {
+                scope.select = function (selectedTime, events) {
                     if (scope.timeSelected) {
-                        scope.timeSelected({selectedTime: selectedTime});
+                        scope.timeSelected({selectedTime: selectedTime, events: events});
                     }
                 };
 
